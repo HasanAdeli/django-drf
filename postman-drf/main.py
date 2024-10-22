@@ -1,5 +1,6 @@
 from validators import InputValidator
 from file_manager import FileManager
+from parsers import PostmanParser
 
 
 class PostmanToDjango:
@@ -7,6 +8,7 @@ class PostmanToDjango:
     def __init__(self):
         self._input_validator = InputValidator()
         self._file_manager = FileManager()
+        self._parser = PostmanParser()
 
     def postman_to_django(self, collection_file: str, destination: str, environment_file: str | None = None) -> None:
         # 1) validation of inputs
@@ -15,3 +17,6 @@ class PostmanToDjango:
         # 2) open postman files
         collection = self._file_manager.read_json(collection_file)
         environment = self._file_manager.read_json(environment_file)
+
+        # 3) parse postman file and extract data
+        data = self._parser.parse(collection, environment)
