@@ -132,14 +132,6 @@ class ItemItemParser(ItemParser):
         return super().parse(items)
 
 
-# class ItemItemNameParser(ItemItemParser):
-#
-#     def parse(self, name: str) -> dict:
-#         return {
-#             'name': '_'.join([n.lower() for n in name.split(' ')])
-#         }
-
-
 class ItemRequestParser(ItemParser):
 
     def parse(self, request: dict) -> dict:
@@ -194,7 +186,7 @@ class RequestBodyParser(ItemRequestParser):
         data = {}
         for key, value in body.items():
             if key == 'mode':
-                parser_class_name = 'ItemRequestBody' + value.capitalize() + 'Parser'
+                parser_class_name = 'RequestBody' + value.capitalize() + 'Parser'
                 parser = self._parser_factory.get_parser(parser_class_name)
                 parser_result = parser.parse(body)
                 data.update(parser_result)
@@ -216,7 +208,7 @@ class RequestBodyFormdataParser(RequestBodyParser):
         return body
 
 
-class ItemRequestBodyRawParser(RequestBodyParser):
+class RequestBodyRawParser(RequestBodyParser):
 
     def parse(self, body: dict) -> dict:
         raw = body['raw'].replace(' ', '').replace('\n', '').replace('\r', '')
@@ -242,8 +234,7 @@ class RequestDescriptionParser(ItemRequestParser):
 class ItemResponseParser(ItemParser):
 
     def parse(self, name: str) -> dict:
-        return {
-        }
+        return {}
 
 
 class ParserFactory:
@@ -253,7 +244,6 @@ class ParserFactory:
         try:
             parser = eval(class_name)
         except NameError:
-            print(f'There is no parser named {class_name}')
+            print(f'There is no parser named ({class_name})')
             parser = NullParser
         return parser()
-

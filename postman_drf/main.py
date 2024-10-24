@@ -1,7 +1,7 @@
-from validators import InputValidator
-from file_manager import FileManager
-from parsers import PostmanParser
-from generator import TestGenerator
+from postman_drf.validators import InputValidator
+from postman_drf.file_manager import FileManager
+from postman_drf.parsers import PostmanParser
+from postman_drf.generator import TestGenerator
 
 
 class PostmanToDjango:
@@ -24,15 +24,7 @@ class PostmanToDjango:
         data = self._parser.parse(collection, environment)
 
         # 4) Generate python code
-        tests = self._generator.generate_tests_from_postman(data)
+        tests = self._generator.generate(data)
 
         # 5) Save test codes into python file
         self._file_manager.write_in_test_file(destination, tests)
-
-
-if __name__ == '__main__':
-    p2d = PostmanToDjango()
-    p2d.postman_to_django(
-        collection_file='EIA APIv2.postman_collection.json',
-        destination='test2.py'
-    )
