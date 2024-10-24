@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from .exceptions import FileOrDirectoryNotFoundError, FileIsNotJsonError
+from exceptions import FileOrDirectoryNotFoundError, FileIsNotJsonError
 
 
 class AbstractValidator(ABC):
