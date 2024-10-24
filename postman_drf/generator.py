@@ -49,6 +49,7 @@ class TestGenerator:
     @staticmethod
     def generate_class(name: str, description: str) -> str:
         name = ''.join([word.capitalize() for word in name.split(' ')])
+        name = ''.join([word.capitalize() for word in name.split('_')])
         class_str = f'\nclass {name}Test(TestCase):\n'
         if description:
             class_str += f'    # {description}\n'

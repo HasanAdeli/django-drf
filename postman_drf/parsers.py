@@ -1,3 +1,4 @@
+import re
 from abc import ABC, abstractmethod
 
 
@@ -65,17 +66,13 @@ class InfoParser(CollectionParser):
 class EventParser(CollectionParser):
 
     def parse(self, event: dict) -> dict:
-        return {
-
-        }
+        return {}
 
 
 class AuthParser(CollectionParser):
 
     def parse(self, auth: dict) -> dict:
-        return {
-
-        }
+        return {}
 
 
 class VariableParser(CollectionParser):
@@ -106,8 +103,12 @@ class ItemParser(CollectionParser):
 class ItemNameParser(ItemParser):
 
     def parse(self, name: str) -> dict:
+        valid_name = re.sub(r'[^a-zA-Z0-9_]', '_', name)
+        if valid_name[0].isdigit():
+            valid_name = '_' + valid_name
+
         return {
-            'name': name
+            'name': valid_name
         }
 
 
@@ -122,8 +123,7 @@ class ItemDescriptionParser(ItemParser):
 class ItemEventParser(ItemParser):
 
     def parse(self, name: str) -> dict:
-        return {
-        }
+        return {}
 
 
 class ItemItemParser(ItemParser):
