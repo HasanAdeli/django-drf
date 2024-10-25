@@ -37,15 +37,5 @@ def postman_to_drf(collection_file: str, destination: str, environment_file: str
     )
 
 
-@app.command()
-def create():
-    print("Creating user: Hiro Hamada")
-
-
-@app.command()
-def delete():
-    print("Deleting user: Hiro Hamada")
-
-
 if __name__ == '__main__':
     app()
