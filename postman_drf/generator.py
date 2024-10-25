@@ -141,7 +141,7 @@ class PatchTestGenerator(AbstractGenerator):
         headers_str = str(headers) if headers else "{}"
         body_str = str(body).replace('\n', '\\n') if body else "{}"
         return f'''
-    def test_{name}_patch(self):
+    def test_{name}(self):
         client = APIClient()
         response = client.patch("{url}", data={body_str}, content_type='application/json', headers={headers_str})
         self.assertEqual(response.status_code, 200)
@@ -152,7 +152,7 @@ class HeadTestGenerator(AbstractGenerator):
     def generate(self, name, url, headers):
         headers_str = str(headers) if headers else "{}"
         return f'''
-    def test_{name}_head(self):
+    def test_{name}(self):
         client = APIClient()
         response = client.head("{url}", headers={headers_str})
         self.assertEqual(response.status_code, 200)
@@ -163,7 +163,7 @@ class OptionsTestGenerator(AbstractGenerator):
     def generate(self, name, url, headers):
         headers_str = str(headers) if headers else "{}"
         return f'''
-    def test_{name}_options(self):
+    def test_{name}(self):
         client = APIClient()
         response = client.options("{url}", headers={headers_str})
         self.assertEqual(response.status_code, 200)
