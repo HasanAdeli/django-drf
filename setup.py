@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='postman-drf',
-    version='0.1.0',
+    version='0.1.1',
     author='Hassan adeli',
     author_email='hasanadeli1374@gmail.com',
     description='A package to convert Postman collections to Django rest framework code and vice versa.',

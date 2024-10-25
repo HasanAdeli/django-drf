@@ -3,4 +3,4 @@ from postman_drf.main import PostmanToDjango
 
 
 __app_name__ = "postman_drf"
-__version__ = "0.1.0"
+__version__ = "0.1.1"
