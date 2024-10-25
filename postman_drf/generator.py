@@ -1,3 +1,4 @@
+import re
 from abc import ABC, abstractmethod
 
 
@@ -52,17 +53,17 @@ class TestGenerator(AbstractGenerator):
         return generator.generate(name, url, headers)
 
     @staticmethod
-    def get_generator_according_to_the_method(method):
+    def get_generator_according_to_the_method(method: str):
         methods = {
-            'get': GetTestGenerator,
-            'post': PostTestGenerator,
-            'put': PutTestGenerator,
-            'delete': DeleteTestGenerator,
-            'patch': PatchTestGenerator,
-            'head': HeadTestGenerator,
-            'options': OptionsTestGenerator
+            'get': GetTestGenerator(),
+            'post': PostTestGenerator(),
+            'put': PutTestGenerator(),
+            'delete': DeleteTestGenerator(),
+            'patch': PatchTestGenerator(),
+            'head': HeadTestGenerator(),
+            'options': OptionsTestGenerator()
         }
-        return methods.get(method)()
+        return methods.get(method, '')
 
     def generate_test_file_content(self):
         self.test_file_content += 'from django.test import TestCase\n'
@@ -73,7 +74,6 @@ class TestGenerator(AbstractGenerator):
             self.test_file_content += ''.join([text for text in tests]) + '\n'
 
     def replace_variables(self, variables):
-        import re
         for variable in variables:
             for key, value in variable.items():
                 pattern = r'{{' + key + '}}'
